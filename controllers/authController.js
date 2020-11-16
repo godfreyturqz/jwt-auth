@@ -1,6 +1,11 @@
 const UserModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
+
+// #######################################################################
+// FUNCTIONS
+// #######################################################################
+
 //------------------------------------
 // ERROR HANDLER
 //------------------------------------
@@ -47,7 +52,7 @@ const createToken = (id) => {
 // #######################################################################
 
 //------------------------------------
-// RENDERS
+// RENDERS RENDERS RENDERS
 //------------------------------------
 
 module.exports.signup_get = (req, res) => {
@@ -59,7 +64,7 @@ module.exports.login_get = (req, res) => {
 }
 
 //------------------------------------
-// SIGNUP
+// SIGNUP SIGNUP SIGNUP
 //------------------------------------
 
 module.exports.signup_post = async (req, res) => {
@@ -78,7 +83,7 @@ module.exports.signup_post = async (req, res) => {
 }
 
 //------------------------------------
-// LOGIN
+// LOGIN LOGIN LOGIN
 //------------------------------------
 
 module.exports.login_post = async (req, res) => {
@@ -96,9 +101,17 @@ module.exports.login_post = async (req, res) => {
 
 }
 
+//------------------------------------
+// LOGOUT LOGOUT LOGOUT
+//------------------------------------
+
+module.exports.logout_get = async (req, res) => {
+    res.cookie('jwt', '', { secure: true, httpOnly: true, maxAge: 1})
+    res.redirect('/')
+}
 
 // #######################################################################
-// DEV FUNCTIONS
+// DEV FUNCTIONS (e.g. TEST, RESET)
 // #######################################################################
 
 module.exports.deleteMany = (req, res) => {

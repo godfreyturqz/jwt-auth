@@ -40,7 +40,7 @@ app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use('/', require('./routes/authRoutes'))
 
 //--------------------------------------------------------------
-// SAMPLE COOKIES
+// SAMPLE SET/GET COOKIES - NOT INCLUDED IN THE APP
 //--------------------------------------------------------------
 
 app.get('/set-cookies', (req, res) => {
@@ -49,10 +49,12 @@ app.get('/set-cookies', (req, res) => {
   res.cookie('isEmail', true)
 
   res.send('you got the cookies')
+
 });
 
 app.get('/get-cookies', (req, res) => {
 
   const cookies = req.cookies
   res.json(cookies)
+
 });
