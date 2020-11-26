@@ -7,7 +7,7 @@ const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 const app = express();
 
 //--------------------------------------------------------------
-// MIDDLEWARE
+// MIDDLEWARES
 //--------------------------------------------------------------
 
 app.use(express.static('public'));
@@ -28,7 +28,7 @@ mongoose.connect(
     process.env.dbURI,
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true }
   )
-  .then(() => app.listen(3000, ()=> console.log('connected to server')))
+  .then(() => app.listen(5000, ()=> console.log('connected to server')))
   .catch((err) => console.log(err));
 
 //--------------------------------------------------------------

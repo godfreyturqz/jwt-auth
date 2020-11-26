@@ -1,52 +1,6 @@
 const UserModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
-
-// #######################################################################
-// FUNCTIONS
-// #######################################################################
-
-//------------------------------------
-// ERROR HANDLER
-//------------------------------------
-
-const handleErrors = error => {
-    console.log(error.message)
-    let errors = { email: '', password: '' }
-
-    // duplicate error
-    if(error.code === 11000){
-        errors.email = 'Email already exists'
-    }
-
-    // validation errors
-    if(error.message.includes('users validation failed')){
-        Object.values(error.errors).forEach(({properties}) => {
-            errors[properties.path] = properties.message
-        })
-    }
-
-    // login errors
-    if(error.message == 'incorrect email'){
-        errors.email = 'Email is not registered'
-    }
-    if(error.message == 'incorrect password'){
-        errors.password = 'Password is incorrect'
-    }
-
-    return errors
-}
-
-//------------------------------------
-// CREATE TOKENS
-//------------------------------------
-
-const createToken = (id) => {
-    return jwt.sign({id}, process.env.JWT , {
-        expiresIn: 3 * 24 * 60 * 60
-    })
-}
-
 // #######################################################################
 // AUTH CONTROLLER
 // #######################################################################
@@ -108,6 +62,51 @@ module.exports.login_post = async (req, res) => {
 module.exports.logout_get = async (req, res) => {
     res.cookie('jwt', '', { secure: true, httpOnly: true, maxAge: 1})
     res.redirect('/')
+}
+
+// #######################################################################
+// FUNCTIONS
+// #######################################################################
+
+//------------------------------------
+// ERROR HANDLER
+//------------------------------------
+
+const handleErrors = error => {
+    console.log(error.message)
+    let errors = { email: '', password: '' }
+
+    // duplicate error
+    if(error.code === 11000){
+        errors.email = 'Email already exists'
+    }
+
+    // validation errors
+    if(error.message.includes('users validation failed')){
+        Object.values(error.errors).forEach(({properties}) => {
+            errors[properties.path] = properties.message
+        })
+    }
+
+    // login errors
+    if(error.message == 'incorrect email'){
+        errors.email = 'Email is not registered'
+    }
+    if(error.message == 'incorrect password'){
+        errors.password = 'Password is incorrect'
+    }
+
+    return errors
+}
+
+//------------------------------------
+// CREATE TOKENS
+//------------------------------------
+
+const createToken = (id) => {
+    return jwt.sign({id}, process.env.JWT , {
+        expiresIn: 3 * 24 * 60 * 60
+    })
 }
 
 // #######################################################################
